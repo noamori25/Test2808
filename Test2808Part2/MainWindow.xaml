@@ -1,0 +1,36 @@
+﻿<Window x:Class="Test2808Part2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Test2808Part2"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" x:Name="MyWindow">
+    <Window.Resources>
+        <local:ViewModel x:Key="vm" x:Name="vm"></local:ViewModel>
+        <local:TimerConverter x:Key="converter"></local:TimerConverter>
+    </Window.Resources>
+    <Window.Style>
+        <Style TargetType="local:MainWindow">
+            <Setter Property="Background" Value="White"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding TimerLeft}" Value="0">
+                    <Setter Property="Background" Value="LightPink" />
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Style>
+    <StackPanel Orientation="Vertical">
+        <Label HorizontalContentAlignment="Center" Content="10 * 5 = " FontSize="40" Height="80" Margin="270,10,255,30" BorderBrush="Black" BorderThickness="2"/>
+        <WrapPanel>
+            <Button x:Name="bCorrect" Width="200" Height="60" VerticalAlignment="Top" Margin="100,10,200,10" HorizontalAlignment="Left"  Content="{Binding ex.CorrectAnswer,Mode=TwoWay}" Click="BCorrect_Click" FontSize="20">
+            </Button>
+            <Button x:Name="b1" Width="200" Height="60" VerticalAlignment="Bottom"  Margin="10,10" HorizontalAlignment="Right"  Content="{Binding ex.Optional1,Mode=TwoWay}" FontSize="20" Click="B1_Click"></Button>
+            <Button x:Name="b2" Width="200" Height="60" VerticalAlignment="Top"  Margin="100,10,200,10" HorizontalAlignment="Right"  Content="{Binding ex.Optional2,Mode=TwoWay}" FontSize="20" Click="B2_Click"></Button>
+            <Button x:Name="b3" Width="200" Height="60" VerticalAlignment="Bottom"  Margin="10,10" HorizontalAlignment="Left"  Content="{Binding ex.Optional3,Mode=TwoWay}" FontSize="20" Click="B3_Click"/>
+        </WrapPanel>
+        <TextBlock x:Name="TextBlock" Foreground="{Binding Path=TimerLeft, Converter={StaticResource converter}}" Width="200" Height="100" HorizontalAlignment="Right" Margin="20" Text="{Binding Path=TimerLeft, Mode=TwoWay, StringFormat=Timer Left:{0}}" FontSize="20" TextAlignment="Center">
+        </TextBlock>
+    </StackPanel>
+</Window>
